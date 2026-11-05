@@ -6,7 +6,7 @@
 // the standard set users already know.
 // Dependency-free ESM (see palette.js).
 
-import { COLOR_IDS, SIZE_IDS, DASH_IDS, FILL_IDS, FONT_IDS, GEO_IDS, GRID_IDS, THEMES, FONTS } from './palette.js'
+import { COLOR_IDS, SIZE_IDS, DASH_IDS, FILL_IDS, FONT_IDS, GEO_IDS, GRID_IDS, THEMES, fontStackOf } from './palette.js'
 
 const SVG = (inner) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`
@@ -286,7 +286,7 @@ export function buildUI(editor, { hidden = false, onSave, themeToggle = true, gr
     for (const f of FONT_IDS) {
       const b = el('button', 'qd-opt' + (cur.font === f ? ' on' : ''))
       b.title = 'font: ' + (FONT_LABELS[f] || f)
-      b.innerHTML = `<span style="font-family:${FONTS[f]}">Ag</span>`
+      b.innerHTML = `<span style="font-family:${fontStackOf(f)}">Ag</span>`
       b.addEventListener('click', (e) => { e.stopPropagation(); editor.setStyle('font', f); restyle() })
       fonts.appendChild(b)
     }
