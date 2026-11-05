@@ -100,10 +100,10 @@ describe('platform injection', () => {
     expect(l.w).toBeGreaterThan(0)
   })
 
-  it('sortShapesForRender keeps highlighters beneath, z-ordered within groups', () => {
+  it('sortShapesForRender layers image, highlighter, ink — z-ordered within groups', () => {
     const s = (id, type, z) => ({ id, typeName: 'shape', type, x: 0, y: 0, rot: 0, z, props: {} })
     expect(sortShapesForRender([
       s('geo-hi', 'geo', 99), s('hl-lo', 'highlight', 1), s('img', 'image', 50),
-    ]).map((x) => x.id)).toEqual(['hl-lo', 'img', 'geo-hi'])
+    ]).map((x) => x.id)).toEqual(['img', 'hl-lo', 'geo-hi'])
   })
 })
