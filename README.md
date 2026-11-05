@@ -120,6 +120,52 @@ const blob = await editor.exportImage({ background: true, scale: 2 })
 See the [repository README](https://github.com/quickdrawjs/quickdraw) for the
 full API, data model and guides.
 
+## Configuration reference (fork additions)
+
+Everything here is opt-in; defaults match upstream exactly. See
+[CHANGELOG.md](./CHANGELOG.md) for rationale and upstream tracking.
+
+```js
+import {
+  Editor, FONT_IDS, setFontStacks, resetFontStacks, fontStackOf,
+} from '@quickdrawjs/core'
+
+// --- editor construction ---
+const editor = new Editor({
+  container,                 // required HTMLElement
+  store,                     // optional Store (default: new Store())
+  theme: 'light',            // 'light' | 'dark'
+  grid: 'lines',             // 'none' | 'lines' | 'ruled' | 'dots' | 'crosses' | 'iso'
+  readonly: false,           // lock all input (also freezes wheel)
+  camera,                    // optional { x, y, z } initial viewport
+  styles,                    // optional pen defaults (see style keys below)
+  geoKind: 'rectangle',      // default geo shape
+  disablePanScroll: false,   // true: plain wheel passes to the page,
+                             // Ctrl/Meta+wheel still zooms the board
+})
+
+// --- fonts ---
+FONT_IDS // ['draw', 'sans', 'serif', 'mono']
+setFontStacks({
+  sans: "'Inter', system-ui, sans-serif",   // remap an id (or add new ids)
+  mono: "'JetBrains Mono', ui-monospace, monospace",
+})
+fontStackOf('sans') // resolved CSS font-family string (unknown ids -> draw)
+resetFontStacks()   // restore bundled defaults
+// process-global: call once at startup. In the browser, load matching faces
+// with @font-face so measurement matches drawing.
+
+// --- per-shape styles (editor.setStyle(key, value) or props) ---
+// color: 'black' | 'grey' | 'light-violet' | 'violet' | 'blue' |
+//        'light-blue' | 'yellow' | 'orange' | 'green' | 'light-green' |
+//        'light-red' | 'red'            (text, notes, geo labels use font:)
+// font:  'draw' (hand, bundled) | 'sans' | 'serif' | 'mono'  (text/note/geo)
+// size:  's' | 'm' | 'l' | 'xl'
+// dash:  'draw' (hand) | 'solid' | 'dashed' | 'dotted'
+// fill:  'none' | 'semi' | 'solid' | 'pattern'      (geo only)
+// opacity: 0..1
+```
+
 ## License
 
 MIT
