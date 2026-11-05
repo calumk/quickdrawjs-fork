@@ -1,4 +1,14 @@
-# @quickdrawjs/core
+# @quickdrawjs/core (fork)
+
+> Community fork of [quickdrawjs/quickdraw](https://github.com/quickdrawjs/quickdraw)'s
+> core engine, tracking upstream `main` plus the open feature PRs (image-bottom
+> stacking, pluggable font stacks, font picker, clipboard overhaul, embed
+> scrolling, server-renderer seam). Installable directly for local use while
+> those land upstream:
+>
+> ```bash
+> npm install github:calumk/quickdrawjs-fork
+> ```
 
 The framework-free heart of [Quickdraw](https://tryquickdraw.com) — an MIT-licensed
 infinite-canvas whiteboard engine. Zero dependencies, zero build step: plain ESM
